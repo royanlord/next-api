@@ -17,3 +17,27 @@ export async function GET() {
         }
     );
 }
+
+export async function POST(request) {
+    // get all request
+    const { title, content } = await request.json()
+
+    // create data post
+    const post = await prisma.post.create({
+        data: {
+            title: title,
+            content: content
+        }
+    })
+
+    return NextResponse.json(
+        {
+            success: true,
+            message: "Post created successfully!",
+            data: post
+        },
+        {
+            status: 201
+        }
+    )
+}
