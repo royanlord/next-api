@@ -37,3 +37,34 @@ export async function GET(request, { params }) {
         }
     )
 }
+
+export async function PATCH(request, { params }) {
+    // get params id
+    const id = parseInt(params.id)
+
+    // get request data
+    const { title, content } = await request.json() 
+
+    const post = await prisma.post.update({
+        where: {
+            id
+        },
+        data: {
+            title: title,
+            content: content,
+            updatedAt: new Date()
+        }
+    })
+
+    return NextResponse.json(
+        {
+            success: true,
+            message: "Data post updated!",
+            data: post
+        },
+        {
+            status: 200
+        }
+    )
+
+}
