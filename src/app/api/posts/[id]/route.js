@@ -66,5 +66,24 @@ export async function PATCH(request, { params }) {
             status: 200
         }
     )
+}
 
+export async function DELETE(request, { params }) {
+    const id = parseInt(params.id)
+
+    await prisma.post.delete({
+        where: {
+            id
+        }
+    })
+
+    return NextResponse.json(
+        {
+            success: true,
+            message: "Data post deleted!"
+        },
+        {
+            status: 200
+        }
+    )
 }
